@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Template/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Template/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useContext } from 'react';
+import { RiRefreshLine } from "react-icons/ri";
+import { MasivosContext } from '../../Context';
+import { useTemplate } from './useTemplate';
+import { v4 as uuidv4 } from 'uuid';
+
+/**
+ * Renders a template component.
+ *
+ * @return {JSX.Element} The rendered template component.
+ */
+const Template = () => {
+    const context = useContext(MasivosContext);
+    
+    const { plantillaSelect, clickRefreshTemplates, urlImageTemplate } = useTemplate();
+
+    return (
+        &lt;>
+            &lt;div className="text-sky-600 text-base font-semibold mb-2">Plantilla&lt;/div>
+            &lt;div className="text-black text-opacity-60 text-sm ">Escoje la plantilla que desea enviar verificada por meta. &lt;/div>
+            &lt;div className="flex items-center justify-between">
+                &lt;select
+                    id="selectPlantilla"
+                    className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:border-2 p-2 my-2"
+                    value={context.plantilla}
+                    onChange={plantillaSelect}
+                >
+                    &lt;option value={'Plantilla'}> Plantilla &lt;/option>
+                    {context.getTemplates.map((template) => (
+                        &lt;option
+                            value={template.name}
+                            key={uuidv4()}
+                        >
+                            {template.name}
+                        &lt;/option>
+                    ))}
+                &lt;/select>
+                &lt;div className='ml-2 flex justify-end text-3xl text-[#0096C8] font-bold'
+                    onClick={clickRefreshTemplates}
+                >
+                    &lt;RiRefreshLine />
+                &lt;/div>
+
+            &lt;/div>
+            {context.urlImage ? (
+                &lt;>
+                    &lt;p className="text-black text-opacity-60 text-sm ">
+                        Ingrese la Url de la imagen de la plantilla
+                    &lt;/p>
+                    &lt;input
+                        id="MiUrl"
+                        type="text"
+                        placeholder="URL de la plantilla"
+                        onChange={urlImageTemplate}
+                        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:border-2 p-2 my-2"
+                    />
+                &lt;/>
+            ) : (
+                &lt;p className="text-black text-opacity-60 text-sm my-6 mx-2">
+                        Esta plantilla no posee una imagen
+                &lt;/p>
+                
+            )}
+
+        &lt;/>
+    );
+};
+
+export { Template }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

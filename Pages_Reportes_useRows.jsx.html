@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/Reportes/useRows.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/Reportes/useRows.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useMemo } from "react";
+
+/**
+ * Generates an array of rows using memoization.
+ *
+ * @returns {Array} An array of rows containing information about car models.
+ */
+export default function useRows() {
+ const rows = useMemo(
+   () => [
+     {
+       marca: "Audi",
+       modelo: "A3",
+       segmento: "Sedan, Convertible",
+       anio: "2015"
+     },
+     {
+       marca: "Audi",
+       modelo: "A3",
+       segmento: "Wagon",
+       anio: "2013"
+     },
+     {
+       marca: "Audi",
+       modelo: "A3 Sportback e-tron",
+       segmento: "Wagon",
+       anio: "2016"
+     },
+     {
+       marca: "Audi",
+       modelo: "A4",
+       segmento: "Sedan, Convertible",
+       anio: "2006"
+     },
+     {
+       marca: "Audi",
+       modelo: "A4",
+       segmento: "Sedan, Wagon",
+       anio: "2001"
+     },
+     {
+       marca: "Audi",
+       modelo: "A4 allroad",
+       segmento: "Wagon",
+       anio: "2019"
+     },
+     {
+       marca: "Audi",
+       modelo: "A5",
+       segmento: "Coupe",
+       anio: "2008"
+     },
+     {
+       marca: "Audi",
+       modelo: "A5 Sport",
+       segmento: "Convertible, Coupe",
+       anio: "2017"
+     },
+     {
+       marca: "Audi",
+       modelo: "Q3",
+       segmento: "SUV",
+       anio: "2020"
+     },
+     {
+       marca: "Audi",
+       modelo: "R8",
+       segmento: "Coupe",
+       anio: "2008"
+     },
+     {
+       marca: "Audi",
+       modelo: "TT",
+       segmento: "Coupe",
+       anio: "2019"
+     },
+     {
+       marca: "Audi",
+       modelo: "Q7",
+       segmento: "SUV",
+       anio: "2015"
+     },
+     {
+       marca: "Audi",
+       modelo: "Q8",
+       segmento: "SUV",
+       anio: "2019"
+     },
+     {
+       marca: "Audi",
+       modelo: "Cabriolet",
+       segmento: "Convertible, Coupe",
+       anio: "1996"
+     }
+   ],
+   []
+ );
+
+ return rows;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

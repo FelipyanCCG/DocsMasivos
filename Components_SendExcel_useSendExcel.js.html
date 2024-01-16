@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/SendExcel/useSendExcel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/SendExcel/useSendExcel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useContext, useEffect, useRef } from 'react';
+import { MasivosContext } from '../../Context';
+import { variablesTemp } from '../../Api/variablesTemp';
+import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
+
+
+/**
+ * Generates a function comment for the given function body in a markdown code block with the correct language syntax.
+ *
+ * @return {object} An object containing the following functions:
+ *    - handleFileChange: A function that handles the file change event.
+ *    - handleclickSendExcel: A function that handles the click event to send the Excel data.
+ */
+const useSendExcel = () => {
+
+  const {
+
+    tokenUser,
+    isRuning,
+    isRefresh,
+    detailSend,
+    excelLength,
+    homeDataClient,
+    handleSendTemplate,
+    handleSendMensaje,
+    setDataError,
+    setDetailSend,
+    setSendHistory,
+    setStartSend,
+    setShowToast,
+    setSubmitButtonClicked,
+    urlImage,
+    plantilla,
+    urlTemplate,
+    idPlantilla,
+    setExcelLength,
+    handleSendEmail,
+    dataError,
+    variables,
+    setVariablesInputs
+
+  } = useContext(MasivosContext);
+
+  const currentTokenUser = useRef(tokenUser);
+  const currentIsRuning = useRef(isRuning);
+  const currentIsRefresh = useRef(isRefresh);
+  const [dataExcel, setDataExcel] = useState([]);
+  const iterBucle = useRef(0);
+  const incorrectos = useRef(0);
+  const correctos = useRef(0);
+
+    /**
+   * Tracks the `tokenUser` state and updates `currentTokenUser`.
+   *
+   * @return {void}
+   */
+  useEffect(() => {
+    currentTokenUser.current = tokenUser;
+  }, [tokenUser]);
+
+    /**
+   * Monitors the `isRefresh` state and controls the sending process
+   * based on `isRefresh` and comparison between `procesado` and
+   * `excelLength`.
+   *
+   * @return {void}
+   */
+  useEffect(() => {
+    currentIsRefresh.current = isRefresh;
+    if (!currentIsRefresh.current &amp;&amp; !(detailSend.procesado === excelLength)) {
+      handleBucleSend();
+    }
+  }, [isRefresh]);
+
+    /**
+   * Observes the `isRuning` state and triggers `handleBucleSend` when
+   * `isRuning` is false.
+   *
+   * @return {void}
+   */
+  useEffect(() => {
+    currentIsRuning.current = isRuning;
+    if (!currentIsRuning.current) {
+      handleBucleSend();
+    }
+  }, [isRuning]);
+
+  /**
+   * Handles the file change event.
+   *
+   * @param {object} e - The event object.
+   * @return {void} No return value.
+   */
+  const handleFileChange = (e) => {
+
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const bstr = event.target.result;
+      const wb = XLSX.read(bstr, { type: 'binary' });
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+      setDataExcel(data);
+      setExcelLength(data.length);
+      if (variables > 0) {
+        let obj = {};
+        for (let index = 1; index &lt;= variables; index++) { 
+          obj[`${index}`] = data[0][index + 1];
+        }
+        setVariablesInputs(obj);
+      }
+    };
+    
+    /**
+     * Handles the error when the file could not be read.
+     *
+     * @param {Event} event - The event object.
+     * @return {void} No return value.
+     */
+    reader.onerror = () => {
+      console.error("File could not be read!");
+    };
+    reader.readAsBinaryString(file);
+  };
+
+  /**
+   * Handles sending data based on certain conditions.
+   *
+   * @param {Object} item - the item to be sent
+   * @return {Promise&lt;any>} a promise that resolves with the result of the sending operation
+   */
+  const handeSend = async (item) => {
+    if (variables > 0) {
+      console.log('variables');
+      let mivar = []
+      for (let index = 1; index &lt;= variables; index++) { 
+        mivar[index-1] = item[index+1]+'';
+      }
+
+      return await variablesTemp(
+        currentTokenUser.current, 
+        homeDataClient.attributes.Client, 
+        item[1], 
+        plantilla, 
+        mivar,
+        urlTemplate
+        );
+    }
+    if (urlImage) {
+      return await handleSendTemplate(
+        currentTokenUser.current, 
+        homeDataClient.attributes.Client, 
+        item[1], 
+        plantilla, 
+        urlTemplate
+        );
+    }
+    if(!urlImage){
+      return await handleSendMensaje(
+        currentTokenUser.current, 
+        homeDataClient.attributes.Client, 
+        item[1], 
+        plantilla
+        );
+
+    }
+  };
+
+  /**
+   * Handles the sending of data in a loop.
+   *
+   * @return {Promise&lt;void>} A promise that resolves when the sending of data is completed.
+   */
+  const handleBucleSend = async () => {
+
+    for (let i = iterBucle.current; i &lt; dataExcel.length; i++) {
+
+      if (currentIsRuning.current) {
+        iterBucle.current = i;
+        return;
+      }
+
+      if (currentIsRefresh.current) {
+        iterBucle.current = i;
+        return;
+      }
+
+      let response;
+      try {
+        response = await handeSend(dataExcel[i]);
+
+        if (response.attributes.code_status === 200) {
+
+          correctos.current++;
+
+        } else {
+
+          incorrectos.current++;
+          await setDataError(prevData => [...prevData, 
+            { id: dataExcel[i][0], number: dataExcel[i][1], status: response }]);
+
+        }
+      } catch (error) {
+
+        incorrectos.current++;
+        await setDataError(prevData => [...prevData, 
+            { id: dataExcel[i][0], number: dataExcel[i][1], status: response }]);
+
+      }
+
+      await setDetailSend({
+
+        procesado: i+1,
+        correctos: `${correctos.current}`,
+        incorrectos: `${incorrectos.current}`,
+
+      });
+
+      response.wa_id = dataExcel[i][1];
+
+      await setSendHistory(prevData => [...prevData, response]);
+      
+    }
+
+    await handleSendEmail(tokenUser, excelLength, incorrectos.current, correctos.current, idPlantilla);
+
+  };
+
+  /**
+   * Sends Excel data.
+   *
+   * @return {Promise&lt;void>} - A promise that resolves when the data has been sent successfully.
+   */
+  const sendExcelData = async () => {
+
+    setStartSend(true);
+    setShowToast(true);
+    setSubmitButtonClicked(false);
+    handleBucleSend();
+
+  };
+
+  /**
+   * Handles the click event for sending Excel data.
+   *
+   * @return {undefined} - No return value.
+   */
+  const handleclickSendExcel = () => {
+     
+   iterBucle.current = 0;
+   correctos.current = 0;
+   incorrectos.current = 0;
+
+
+    if (excelLength > 0 &amp;&amp; plantilla) {
+      sendExcelData();
+
+    } else {
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Verifique los datos ingresados y vuelva a intentar!',
+      });
+
+    }
+  };
+
+  return {
+    handleFileChange,
+    handleclickSendExcel,
+  };
+};
+
+export { useSendExcel };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/SendExample/useSendExample.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/SendExample/useSendExample.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useContext } from 'react';
+import { MasivosContext } from '../../Context';
+
+/**
+ * Generates a function comment for the given function body.
+ *
+ * @return {Object} An object containing two functions: `handleNumeroEjemplo` and `handleSendExample`.
+ */
+const useSendExample = () => {
+
+    const context = useContext(MasivosContext);
+  
+    const token = context.tokenUser;
+    const client = context.homeDataClient.attributes.Client
+    const phone = context.numeroEjemplo
+    const template = context.plantilla
+    const image = context.urlTemplate
+    let correctos = 0;
+    let incorrectos = 0;
+    let response
+  
+    /**
+     * Handles the send operation.
+     *
+     * @param {string} phone - The phone number to send the message to.
+     * @return {Promise&lt;any>} A promise that resolves to the result of the send operation.
+     */
+    const handeSend = async (phone) => {
+      if (context.urlImage) {
+        return await context.handleSendTemplate(token, client, phone, template, image);
+      } else {
+        return await context.handleSendMensaje(token, client, phone, template);
+      }
+    }
+  
+    /**
+     * Sends example data asynchronously.
+     *
+     * @return {Promise&lt;void>} - A promise that resolves when the data is sent.
+     */
+    const sendExampleData = async () => {
+  
+      try {
+        
+        response = await handeSend(phone)
+  
+        if (response.attributes.code_status === 200) {
+          correctos++;
+        } else {
+          incorrectos++;
+          await context.setDataError(prevData => [...prevData, { id: 1, number: phone, status: response }]);
+        }
+      } catch (error) {
+  
+        incorrectos++;
+        await context.setDataError(prevData => [...prevData, { id: 1, number: phone, status: response }]);
+  
+      }
+  
+      await context.setDetailSend({
+        procesado: '1',
+        correctos: `${correctos}`,
+        incorrectos: `${incorrectos}`
+      });
+  
+      response.wa_id = phone;
+  
+      await context.setSendHistory(prevData => [...prevData, response]);
+  
+  
+      await context.handleSendEmail(
+        context.tokenUser,
+        '1',
+        incorrectos,
+        correctos,
+        context.idPlantilla
+      );
+  
+    }
+  
+    /**
+     * A description of the entire function.
+     *
+     * @param {type} e - the event object
+     * @return {type} undefined
+     */
+    const handleNumeroEjemplo = (e) => {
+      context.setNumeroEjemplo(e.target.value)
+    }
+  
+    /**
+     * Executes the handleSendExample function.
+     *
+     * @return {void} This function does not return a value.
+     */
+    const handleSendExample = () => {
+      sendExampleData();
+      context.setShowToast(true);
+      context.setExcelLength('1');
+    }
+  
+    return { handleNumeroEjemplo, handleSendExample };
+  
+  }
+
+  export { useSendExample }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

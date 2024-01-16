@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/FormConfig/useFormConfig.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/FormConfig/useFormConfig.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from 'react';
+import { Toast } from '../../Utils/Modal';
+
+
+/**
+ * Generate the form configuration for the useForm hook.
+ *
+ * @param {Object} options - The options for the form configuration.
+ * @param {string} options.tokenUser - The token of the user.
+ * @param {string} options.title - The title of the form.
+ * @param {Function} options.api - The API function to be called.
+ * @param {Function} options.closeToast - The function to close the toast.
+ * @return {Object} The form configuration object.
+ */
+const useFormConfig = ({ tokenUser, title, api, closeToast }) => {
+    
+    const [selectedUsers, setSelectedUsers] = useState([]);
+    const [selectedCampaing, setSelectedCampaing] = useState('');
+
+    useEffect(() => {
+        const preSelectedUserIds = [];
+        setSelectedUsers(preSelectedUserIds);
+    }, []);
+
+    /**
+     * Handles the user selection event.
+     *
+     * @param {Event} e - The event object representing the user selection.
+     * @return {void} This function does not return anything.
+     */
+    const handleUserSelection = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+        setSelectedUsers((prevSelectedUsers) => {
+            const updatedSelection = prevSelectedUsers.includes(selectedOptions[0])
+                ? prevSelectedUsers.filter((user) => !selectedOptions.includes(user))
+                : [...prevSelectedUsers, ...selectedOptions];
+            return updatedSelection;
+        });
+    };
+
+    /**
+     * Handles the selection of a campaign.
+     *
+     * @param {Event} e - The event object representing the selection event.
+     * @return {void} No return value.
+     */
+    const handleCampañaSelection = (e) => {
+        setSelectedCampaing(e.target.value);
+    }
+
+    /**
+     * Handles the form submission.
+     *
+     * @param {Event} e - The event object.
+     * @return {Promise&lt;void>} Returns a promise that resolves to undefined.
+     */
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new window.FormData(e.target);
+        const formFields = Object.fromEntries(Array.from(formData.entries()));
+        const users = selectedUsers || [];
+        formFields.tokenUser = tokenUser;
+        formFields.users = users;
+        console.log(formFields);
+        const response = await api(formFields);
+
+        if (response.id) {
+            closeToast();
+            if (response.type === 'User') {
+                Toast('success', `El usuario ${response.attributes.name} ha sido creado correctamente. ${response.id}`);
+            }
+            if (response.type === 'Client') {
+                if (title === 'Campañas') {
+                    Toast('success', `La campaña ${response.attributes.Client} ha sido creado correctamente. ${response.id}`);
+                } else {
+                    Toast('success', `La campaña ${response.attributes.Client} ha cambiado su token correctamente. ${response.id}`);
+                }
+            }
+        } else {
+            Toast('error', response.message);
+        }
+
+    };
+
+    return {
+        selectedUsers,
+        selectedCampaing,
+        handleUserSelection,
+        handleCampañaSelection,
+        handleSubmit
+    }
+}
+
+export { useFormConfig };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

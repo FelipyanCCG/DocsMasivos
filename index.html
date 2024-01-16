@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Mass-WhatsApp: Bulk WhatsApp Messaging Platform</h1>
+<p>Welcome to Mass-WhatsApp, a powerful web platform built with Vite and React that empowers you to send messages massively through WhatsApp. This application simplifies the messaging process with meta integrations and provides robust features for managing campaigns, users, and templates.</p>
+<h2>Key Features</h2>
+<ul>
+<li>
+<p><strong>Bulk WhatsApp Messaging</strong>: Efficiently send messages to multiple recipients through WhatsApp.</p>
+</li>
+<li>
+<p><strong>Secure Authentication</strong>: Log in securely and easily with password recovery options to maintain your account's privacy.</p>
+</li>
+<li>
+<p><strong>Campaign Management</strong>: Visualize and manage active campaigns, obtaining detailed information about their status and configuration.</p>
+</li>
+<li>
+<p><strong>Custom Templates</strong>: Utilize meta integrations to access custom templates, simplifying the message creation process.</p>
+</li>
+<li>
+<p><strong>Message History</strong>: Explore a detailed history of sent messages, including information about the corresponding numbers.</p>
+</li>
+<li>
+<p><strong>Flexible Configuration</strong>: Easily adjust and modify campaign and user settings from the configuration page.</p>
+</li>
+</ul>
+<h2>Quick Guide</h2>
+<h3>Login</h3>
+<ol>
+<li>Access the platform through the login process.</li>
+<li>Use password recovery options if needed.</li>
+</ol>
+<h3>Dashboard</h3>
+<ol>
+<li>Navigate the menu to access different sections: Campaigns, Messages, Configuration, etc.</li>
+<li>View and manage your active campaigns.</li>
+</ol>
+<h3>Message Sending</h3>
+<ol>
+<li>Create bulk messages using custom templates.</li>
+<li>Track sent messages and associated numbers.</li>
+</ol>
+<h3>Configuration</h3>
+<ol>
+<li>Adjust campaign and user settings according to your needs.</li>
+<li>Add and modify campaigns to tailor them to your marketing strategy.</li>
+</ol>
+<p>Start sending WhatsApp messages massively with Mass-WhatsApp effectively!</p>
+<h2>Developer</h2>
+<p>This application has been developed using Vite and React. You can check the source code and contribute to the development on our GitHub repository.</p>
+<p><a href="#link-to-your-github-repo">GitHub Repository</a></p>
+<hr>
+<p><strong>Note:</strong> Replace &quot;#link-to-your-github-repo&quot; with the actual link to your GitHub repository.</p>
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#useformconfig">useFormConfig</a>
+<ul>
+<li><a href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handleuserselection">handleUserSelection</a>
+<ul>
+<li><a href="#parameters-1">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlecampa%C3%B1aselection">handleCampañaSelection</a>
+<ul>
+<li><a href="#parameters-2">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlesubmit">handleSubmit</a>
+<ul>
+<li><a href="#parameters-3">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlesubmit-1">handleSubmit</a>
+<ul>
+<li><a href="#parameters-4">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlesubmit-2">handleSubmit</a>
+<ul>
+<li><a href="#parameters-5">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#modal">Modal</a>
+<ul>
+<li><a href="#parameters-6">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#toast">Toast</a>
+<ul>
+<li><a href="#parameters-7">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#usemynotification">useMyNotification</a></li>
+<li><a href="#closetoast">closeToast</a>
+<ul>
+<li><a href="#parameters-8">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#closetoast-1">closeToast</a></li>
+<li><a href="#closetoast-2">closeToast</a></li>
+<li><a href="#handleoutsideclick">handleOutsideClick</a>
+<ul>
+<li><a href="#parameters-9">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#useresetpassword">useResetPassword</a>
+<ul>
+<li><a href="#parameters-10">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#sendresetpassword">sendResetPassword</a></li>
+<li><a href="#handleemailchange">handleEmailChange</a>
+<ul>
+<li><a href="#parameters-11">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handleemailchange-1">handleEmailChange</a>
+<ul>
+<li><a href="#parameters-12">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#usenotificationdetails">useNotificationDetails</a></li>
+<li><a href="#startstop">startStop</a></li>
+<li><a href="#clicknumberfail">clickNumberFail</a></li>
+<li><a href="#usenabvar">useNabvar</a></li>
+<li><a href="#handlescroll">handleScroll</a>
+<ul>
+<li><a href="#parameters-13">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#toast-1">toast</a></li>
+<li><a href="#restore">restore</a>
+<ul>
+<li><a href="#parameters-14">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#usesendexample">useSendExample</a></li>
+<li><a href="#handesend">handeSend</a>
+<ul>
+<li><a href="#parameters-15">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handesend-1">handeSend</a>
+<ul>
+<li><a href="#parameters-16">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#sendexampledata">sendExampleData</a></li>
+<li><a href="#handlenumeroejemplo">handleNumeroEjemplo</a>
+<ul>
+<li><a href="#parameters-17">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlesendexample">handleSendExample</a></li>
+<li><a href="#usesendexcel">useSendExcel</a></li>
+<li><a href="#useeffect">useEffect</a></li>
+<li><a href="#useeffect-1">useEffect</a></li>
+<li><a href="#useeffect-2">useEffect</a></li>
+<li><a href="#handlefilechange">handleFileChange</a>
+<ul>
+<li><a href="#parameters-18">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#onerror">onerror</a>
+<ul>
+<li><a href="#parameters-19">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlebuclesend">handleBucleSend</a></li>
+<li><a href="#sendexceldata">sendExcelData</a></li>
+<li><a href="#handleclicksendexcel">handleclickSendExcel</a></li>
+<li><a href="#usetemplate">useTemplate</a></li>
+<li><a href="#plantillaselect">plantillaSelect</a>
+<ul>
+<li><a href="#parameters-20">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#newtemplates">newTemplates</a>
+<ul>
+<li><a href="#parameters-21">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#clickrefreshtemplates">clickRefreshTemplates</a></li>
+<li><a href="#urlimagetemplate">urlImageTemplate</a>
+<ul>
+<li><a href="#parameters-22">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#useconfig">useConfig</a>
+<ul>
+<li><a href="#parameters-23">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#handlecreate">handleCreate</a></li>
+<li><a href="#namebutton">nameButton</a></li>
+<li><a href="#masivosprovider">MasivosProvider</a>
+<ul>
+<li><a href="#parameters-24">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#usesignin">useSignIn</a></li>
+<li><a href="#handlepasswordchange">handlePasswordChange</a>
+<ul>
+<li><a href="#parameters-25">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#toggleshowpassword">toggleShowPassword</a></li>
+<li><a href="#handleresetpassword">handleResetPassword</a></li>
+</ul>
+<h2>useFormConfig</h2>
+<p>Generate the form configuration for the useForm hook.</p>
+<h3>Parameters</h3>
+<ul>
+<li>
+<p><code>options</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> The options for the form configuration.</p>
+<ul>
+<li><code>options.tokenUser</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The token of the user.</li>
+<li><code>options.title</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The title of the form.</li>
+<li><code>options.api</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></strong> The API function to be called.</li>
+<li><code>options.closeToast</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></strong> The function to close the toast.</li>
+</ul>
+</li>
+</ul>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> The form configuration object.</p>
+<h2>handleUserSelection</h2>
+<p>Handles the user selection event.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object representing the user selection.</li>
+</ul>
+<p>Returns <strong>void</strong> This function does not return anything.</p>
+<h2>handleCampañaSelection</h2>
+<p>Handles the selection of a campaign.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object representing the selection event.</li>
+</ul>
+<p>Returns <strong>void</strong> No return value.</p>
+<h2>handleSubmit</h2>
+<p>Handles the form submission.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object.</li>
+</ul>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;void&gt;</strong> Returns a promise that resolves to undefined.</p>
+<h2>handleSubmit</h2>
+<p>Handles the form submission asynchronously.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The form submission event.</li>
+</ul>
+<h2>handleSubmit</h2>
+<p>Submits the form when triggered by an event.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event that triggered the form submission.</li>
+</ul>
+<p>Returns <strong>void</strong> This function does not return a value.</p>
+<h2>Modal</h2>
+<p>Display a modal with a toast notification.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>mode</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The mode of the toast (e.g., &quot;success&quot;, &quot;error&quot;, &quot;warning&quot;).</li>
+<li><code>mensaje</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The message to be displayed in the toast.</li>
+</ul>
+<h2>Toast</h2>
+<p>Creates a toast notification with a given mode and message.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>mode</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The mode of the toast notification (e.g. &quot;success&quot;, &quot;error&quot;, &quot;warning&quot;).</li>
+<li><code>mensaje</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The message to be displayed in the toast notification.</li>
+</ul>
+<h2>useMyNotification</h2>
+<p>Function to use the notification.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></strong> An object with the closeToast function</p>
+<h2>closeToast</h2>
+<p>Closes the toast notification.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>null-null</code> <strong>none</strong> This function does not take any parameters.</li>
+</ul>
+<p>Returns <strong>none</strong> This function does not return any value.</p>
+<h2>closeToast</h2>
+<p>Closes the toast and performs additional actions.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></strong> This function does not return a value.</p>
+<h2>closeToast</h2>
+<p>Closes the toast.</p>
+<p>Returns <strong>void</strong> </p>
+<h2>handleOutsideClick</h2>
+<p>Handles click events that occur outside of the toast element.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The click event object.</li>
+</ul>
+<h2>useResetPassword</h2>
+<p>Generates the function comment for the given function body in a markdown code block
+with the correct language syntax.</p>
+<h3>Parameters</h3>
+<ul>
+<li>
+<p><code>paramsJson</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> an object containing the parameters for the function</p>
+<ul>
+<li><code>paramsJson.paramsJson</code>  </li>
+</ul>
+</li>
+</ul>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> an object containing the email, closeToast, sendResetPassword,
+handleEmailChange, showPasword, and handleSubmit functions</p>
+<h2>sendResetPassword</h2>
+<p>Sends a reset password email.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></strong> A promise that resolves when the email is sent.</p>
+<h2>handleEmailChange</h2>
+<p>Handles the change event of the email input field.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>event</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object representing the change event.</li>
+</ul>
+<p>Returns <strong>void</strong> This function does not return anything.</p>
+<h2>handleEmailChange</h2>
+<p>Handles the change event for the email input field.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The change event object.</li>
+</ul>
+<p>Returns <strong>void</strong> This function does not return anything.</p>
+<h2>useNotificationDetails</h2>
+<p>Generates a custom hook that provides notification details and functionality.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></strong> An object containing the following functions:*   closeToast: A function that closes the notification toast and updates related state.</p>
+<ul>
+<li>startStop: A function that toggles the running state of the notifications.</li>
+<li>clickNumberFail: A function that toggles the display of failed notification count.</li>
+</ul>
+<h2>startStop</h2>
+<p>Toggles the value of <code>isRuning</code>.</p>
+<p>Returns <strong>void</strong> No return value.</p>
+<h2>clickNumberFail</h2>
+<p>Toggles the value of <code>numberFail</code> and updates the state.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></strong> No return value.</p>
+<h2>useNabvar</h2>
+<p>Returns an object containing the user's name, whether the page is scrolled, and two functions for displaying a toast notification and restoring session data.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></strong> An object with the following properties:
+- name: The user's name.
+- isScrolled: A boolean indicating whether the page is scrolled.
+- toast: A function for displaying a toast notification.
+- restore: A function for restoring session data.</p>
+<h2>handleScroll</h2>
+<p>Handles the scroll event.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>paramName</code> <strong>type</strong> description of parameter</li>
+</ul>
+<p>Returns <strong>type</strong> description of return value</p>
+<h2>toast</h2>
+<p>A function to display a toast notification.</p>
+<p>Returns <strong>void</strong> This function does not return a value.</p>
+<h2>restore</h2>
+<p>Restores the state of the context and displays an info modal for a closed session.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>paramName</code> <strong>type</strong> description of parameter</li>
+</ul>
+<p>Returns <strong>type</strong> description of return value</p>
+<h2>useSendExample</h2>
+<p>Generates a function comment for the given function body.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> An object containing two functions: <code>handleNumeroEjemplo</code> and <code>handleSendExample</code>.</p>
+<h2>handeSend</h2>
+<p>Handles the send operation.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>phone</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The phone number to send the message to.</li>
+</ul>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;any&gt;</strong> A promise that resolves to the result of the send operation.</p>
+<h2>handeSend</h2>
+<p>Handles sending data based on certain conditions.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>item</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> the item to be sent</li>
+</ul>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;any&gt;</strong> a promise that resolves with the result of the sending operation</p>
+<h2>sendExampleData</h2>
+<p>Sends example data asynchronously.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;void&gt;</strong> A promise that resolves when the data is sent.</p>
+<h2>handleNumeroEjemplo</h2>
+<p>A description of the entire function.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong>type</strong> the event object</li>
+</ul>
+<p>Returns <strong>type</strong> undefined</p>
+<h2>handleSendExample</h2>
+<p>Executes the handleSendExample function.</p>
+<p>Returns <strong>void</strong> This function does not return a value.</p>
+<h2>useSendExcel</h2>
+<p>Generates a function comment for the given function body in a markdown code block with the correct language syntax.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></strong> An object containing the following functions:*   handleFileChange: A function that handles the file change event.</p>
+<ul>
+<li>handleclickSendExcel: A function that handles the click event to send the Excel data.</li>
+</ul>
+<h2>useEffect</h2>
+<p>Tracks the <code>tokenUser</code> state and updates <code>currentTokenUser</code>.</p>
+<p>Returns <strong>void</strong> </p>
+<h2>useEffect</h2>
+<p>Monitors the <code>isRefresh</code> state and controls the sending process
+based on <code>isRefresh</code> and comparison between <code>procesado</code> and
+<code>excelLength</code>.</p>
+<p>Returns <strong>void</strong> </p>
+<h2>useEffect</h2>
+<p>Observes the <code>isRuning</code> state and triggers <code>handleBucleSend</code> when
+<code>isRuning</code> is false.</p>
+<p>Returns <strong>void</strong> </p>
+<h2>handleFileChange</h2>
+<p>Handles the file change event.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></strong> The event object.</li>
+</ul>
+<p>Returns <strong>void</strong> No return value.</p>
+<h2>onerror</h2>
+<p>Handles the error when the file could not be read.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>event</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object.</li>
+</ul>
+<p>Returns <strong>void</strong> No return value.</p>
+<h2>handleBucleSend</h2>
+<p>Handles the sending of data in a loop.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;void&gt;</strong> A promise that resolves when the sending of data is completed.</p>
+<h2>sendExcelData</h2>
+<p>Sends Excel data.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;void&gt;</strong> A promise that resolves when the data has been sent successfully.</p>
+<h2>handleclickSendExcel</h2>
+<p>Handles the click event for sending Excel data.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></strong> No return value.</p>
+<h2>useTemplate</h2>
+<p>Generates the function comment for the useTemplate function.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></strong> An object containing the following functions:*   plantillaSelect: A function that handles the selection of a template.</p>
+<ul>
+<li>clickRefreshTemplates: A function that refreshes the templates.</li>
+<li>urlImageTemplate: A function that sets the URL of the template image.</li>
+</ul>
+<h2>plantillaSelect</h2>
+<p>Generate the function comment for the given function body.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object.</li>
+</ul>
+<p>Returns <strong>void</strong> This function does not return anything.</p>
+<h2>newTemplates</h2>
+<p>Generates new templates asynchronously.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>tokenUser</code> <strong>type</strong> the user token</li>
+<li><code>homeDataClientId</code> <strong>type</strong> the ID of the home data client</li>
+</ul>
+<p>Returns <strong>type</strong> none</p>
+<h2>clickRefreshTemplates</h2>
+<p>Clicks the &quot;Refresh Templates&quot; button and performs the following actions:</p>
+<ol>
+<li>Calls the &quot;refreshTemplates&quot; function with the &quot;tokenUser&quot; and &quot;homeDataClient?.id&quot; parameters.</li>
+<li>Calls the &quot;newTemplates&quot; function.</li>
+<li>Displays a success message using Swal.fire.</li>
+</ol>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;void&gt;</strong> A promise that resolves when all the actions are complete.</p>
+<h2>urlImageTemplate</h2>
+<p>Sets the url template based on the target value.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The event object containing the target value.</li>
+</ul>
+<p>Returns <strong>void</strong> This function does not return a value.</p>
+<h2>useConfig</h2>
+<p>Generates a custom hook that manages the configuration state for a specific title.</p>
+<h3>Parameters</h3>
+<ul>
+<li>
+<p><code>config</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> The configuration object.</p>
+<ul>
+<li><code>config.title</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The title of the configuration.</li>
+</ul>
+</li>
+</ul>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> An object containing the state and functions for managing the configuration.</p>
+<h2>handleCreate</h2>
+<p>Handle the create operation.</p>
+<p>Returns <strong>void</strong> There is no return value.</p>
+<h2>nameButton</h2>
+<p>Returns the label for the button based on the value of the 'title' variable.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The label for the button.</p>
+<h2>MasivosProvider</h2>
+<p>Export a provider component that wraps the given children
+and provides a context for managing state and data related to a Masivos application.</p>
+<h3>Parameters</h3>
+<ul>
+<li>
+<p><code>props</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> The component props.</p>
+<ul>
+<li><code>props.children</code> <strong>ReactNode</strong> The children components to be wrapped.</li>
+</ul>
+</li>
+</ul>
+<p>Returns <strong>ReactElement</strong> The wrapped component.</p>
+<h2>useSignIn</h2>
+<p>Generates a custom hook for handling sign-in functionality.</p>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> An object containing various functions and state variables related to sign-in.</p>
+<h2>handlePasswordChange</h2>
+<p>Handles the change event of the password input.</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>e</code> <strong><a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a></strong> The change event object.</li>
+</ul>
+<h2>toggleShowPassword</h2>
+<p>Toggles the visibility of the password.</p>
+<p>Returns <strong>void</strong> </p>
+<h2>handleResetPassword</h2>
+<p>Reset the user's password.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/ImgTemplate/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/ImgTemplate/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useContext, useEffect } from 'react';
+import { MasivosContext } from '../../Context';
+import { VariableTemplate } from '../variableTemplate';
+import cel from '../../Assets/cel.svg';
+
+/**
+ * Renders an image template with dynamic styling and content.
+ *
+ * @param {Object} configStyle - The configuration for the styling of the template.
+ * @return {JSX.Element} The rendered image template.
+ */
+const ImgTemplate = ({configStyle}) => {
+  const context = useContext(MasivosContext);
+
+  useEffect(() => {
+    fetch(context.urlTemplate)
+      .then(response => {
+        if (response.ok &amp;&amp; response.headers.get('Content-Type').includes('image')) {
+          context.setIsImage(true);
+        } else {
+          context.setIsImage(false);
+        }
+      })
+      .catch(error => {
+        context.setIsImage(false);
+      });
+  }, [context.urlTemplate, context.setIsImage]);
+
+  return (
+    &lt;>
+      &lt;div
+        className={`w-full h-full ${configStyle ? 'bg-contain' : 'bg-cover'} bg-center bg-no-repeat`}
+        style={{ backgroundImage: `url(${cel})` }}
+      >
+        &lt;ul className={`${configStyle ? 'w-64' : 'w-64 '} h-full flex flex-col justify-between`}>
+          &lt;li className={`bg-[#008069] ${configStyle ? 'my-4 mx-9' : 'my-4 mx-6'} flex items-center`}>
+            &lt;img
+              className={`${configStyle ? 'w-5 h-5' : 'w-7 h-7'}  rounded-full m-2 mr-2`}
+              src={context.homeDataClient.attributes.image}
+              alt="Client"
+            />
+            &lt;p className="text-white text-xs">
+              {context.homeDataClient.attributes.Client}
+            &lt;/p>
+          &lt;/li>
+          &lt;li className={`${configStyle ? 'ml-12 mr-9 mb-20' : 'ml-9 mr-4 mb-20'} text-xs bg-[#E2FFC7] p-3 rounded-lg`}>
+            {(context.isImage &amp;&amp; context.urlTemplate) ? (
+              &lt;div className={`${configStyle ? 'max-h-36' : 'max-h-48'}  overflow-y-auto scrollbar-hide`}>
+                &lt;img
+                  src={context.urlTemplate}
+                  alt="template"
+                  className="max-w-full h-auto object-contain"
+                />
+              &lt;/div>
+            ) : null}
+            
+            {(context.variables>0)?(
+
+            &lt;VariableTemplate 
+            configStyle={true}
+            body={context.getTemplates.find(({ name }) => name === context.plantilla)?.body}
+            variables={context.variablesInputs}
+            />
+
+            ):(
+
+            &lt;div className={`${configStyle ? 'max-h-36' : 'max-h-48'} overflow-y-auto mt-1 scrollbar-hide mx-auto`}>
+              &lt;p>{context.getTemplates.find(({ name }) => name === context.plantilla)?.body}&lt;/p>
+            &lt;/div>
+
+          )}
+          &lt;/li>
+        &lt;/ul>
+      &lt;/div>
+    &lt;/>
+  );
+}
+
+export { ImgTemplate };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

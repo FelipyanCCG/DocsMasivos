@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/MySend/useNotificationDetails.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/MySend/useNotificationDetails.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useContext } from 'react';
+import { MasivosContext } from '../../Context';
+
+/**
+ * Generates a custom hook that provides notification details and functionality.
+ *
+ * @return {object} An object containing the following functions:
+ *   - closeToast: A function that closes the notification toast and updates related state.
+ *   - startStop: A function that toggles the running state of the notifications.
+ *   - clickNumberFail: A function that toggles the display of failed notification count.
+ */
+const useNotificationDetails = () => {
+
+    const {
+      setExcelLength,
+      setShowToast,
+      setNewNotifications,
+      setNotificaciones,
+      detailSend,
+      setDetailSend,
+      plantilla,
+      setNumberFail,
+      numberFail,
+      setIsRuning,
+      isRuning,
+    } = useContext(MasivosContext);
+  
+    /**
+     * Closes the toast and performs additional actions.
+     *
+     * @return {undefined} This function does not return a value.
+     */
+    const closeToast = () => {
+      
+      setExcelLength('0');
+      setShowToast(false);
+      setNewNotifications(true);
+  
+      const plantillaNotificaciones = { ...detailSend, plantilla };
+      setNotificaciones((prevData) => [...prevData, plantillaNotificaciones]);
+      setDetailSend({ procesado: '0', correctos: '0', incorrectos: '0' });
+    };
+  
+    /**
+     * Toggles the value of `isRuning`.
+     *
+     * @return {void} No return value.
+     */
+    const startStop = () => {
+      setIsRuning(!isRuning);
+    };
+  
+    /**
+     * Toggles the value of `numberFail` and updates the state.
+     *
+     * @return {undefined} No return value.
+     */
+    const clickNumberFail = () => {
+      setNumberFail(!numberFail);
+    };
+  
+    return {
+      closeToast,
+      startStop,
+      clickNumberFail,
+    };
+  };
+
+  export { useNotificationDetails }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

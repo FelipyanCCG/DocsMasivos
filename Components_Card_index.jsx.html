@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/Card/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/Card/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useContext } from 'react'
+import { MasivosContext } from '../../Context'
+import { useNavigate } from 'react-router-dom'
+
+/**
+ * Renders a card component with client data.
+ *
+ * @param {Object} data - The data object containing client information.
+ * @return {JSX.Element} The rendered card component.
+ */
+const Card = ({ data }) => {
+  
+  const context = useContext(MasivosContext)
+  const navigate = useNavigate();
+
+  /**
+   * Shows the given data.
+   *
+   * @param {type} data - the data to be shown
+   * @return {type} undefined
+   */
+  const show = (data) => {
+    context.setHomeDataClient(data)
+    navigate('/Home');
+  }
+  
+  /**
+   * Handles the error when loading an image.
+   *
+   * @param {Event} e - The event object containing information about the error.
+   * @return {void} This function does not return a value.
+   */
+  const handleImageError = (e) => {
+    e.target.src = 'path/to/default/image.jpg'; // replace with your default image path
+  }
+
+  return (
+    &lt;div 
+      className='flex flex-col bg-white cursor-pointer p-3 shadow-lg hover:shadow-2xl transition-shadow duration-200 rounded-lg transform hover:scale-105'
+      onClick={() => show(data)}
+      role="button"
+      aria-label="Show details"
+    >
+      &lt;div className='w-52 h-48 relative overflow-hidden rounded-lg'>
+        &lt;img 
+          className='w-full h-full object-cover rounded-lg transform hover:scale-110 transition-transform duration-200' 
+          src={data?.attributes.image}
+          alt='Client' 
+          onError={handleImageError}
+        />
+      &lt;/div>
+      &lt;div className='mt-4'>
+        &lt;p className='text-lg font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200'>
+          {data?.attributes.Client}
+        &lt;/p>
+        &lt;p className='text-gray-500 mt-2'>
+          ID: {data?.id}
+        &lt;/p>
+      &lt;/div>
+    &lt;/div>
+  )
+}
+
+export { Card }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

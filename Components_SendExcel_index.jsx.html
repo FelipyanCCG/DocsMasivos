@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/SendExcel/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/SendExcel/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {  useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { TbReportSearch } from 'react-icons/tb';
+import { MasivosContext } from '../../Context';
+import { SiMicrosoftexcel } from "react-icons/si";
+import { useSendExcel } from './useSendExcel';
+import Ejemplo from '../../Ejemplo_xlsx/EjemploMasivos.xlsx';
+
+
+/**
+ * This function renders the SendExcel component, which is responsible for handling the sending of Excel files in the Masivos WhatsApp application.
+ *
+ * @return {void} This function does not return anything.
+ */
+const SendExcel = () => {
+
+  const { handleFileChange, handleclickSendExcel } = useSendExcel();
+  
+  const { excelLength } = useContext(MasivosContext);
+
+  return (
+    &lt;>
+      &lt;h1 className="text-sky-600 text-base font-semibold mb-1">Masivos WhatsApp&lt;/h1>
+      &lt;div className="flex items-center justify-between">
+        &lt;div className="text-black text-opacity-60 text-sm ">
+          Ingrese los números de teléfono para enviar
+        &lt;/div>
+        &lt;NavLink
+          to={Ejemplo}
+          className='flex justify-end mr-4 text-3xl text-[#0096C8] font-bold'
+          target="_blank" download>
+          &lt;SiMicrosoftexcel className="text-2xl" />
+        &lt;/NavLink>
+      &lt;/div>
+      &lt;input
+        type="file"
+        className="mt-2 block w-5/6 text-sm text-gray-500
+                  file:me-4 file:py-2 file:px-4
+                  file:rounded-lg file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-[#0096C8] file:text-white
+                  hover:file:bg-blue-700"
+        onChange={handleFileChange}
+      />
+      &lt;div className="">
+        &lt;div className="flex items-center justify-between mt-1">
+          &lt;button
+            id="enviarArchivo"
+            className="bg-[#0096C8] w-20 text-white text-sm rounded-lg focus:ring-2 focus:border-2 p-2 my-2"
+            type="button"
+            onClick={handleclickSendExcel}
+          >
+            Enviar
+          &lt;/button>
+          &lt;p id="cantidadRegistros" className="font-bold ml-3">
+            {excelLength > 0 ? `Registros en el archivo: ${excelLength}` : ''}
+          &lt;/p>
+          &lt;NavLink
+            to="/Reportes"
+            className="flex mr-2 justify-end text-3xl text-[#0096C8] font-bold">
+            &lt;TbReportSearch />
+          &lt;/NavLink>
+        &lt;/div>
+      &lt;/div>
+    &lt;/>
+  )
+}
+
+export { SendExcel };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

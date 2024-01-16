@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Context/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Context/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  handleCampains, 
+  handleLogin, 
+  handleUser, 
+  handleClient , 
+  handleGetTemplate, 
+  handleSendTemplate, 
+  refreshTemplates,
+  handleSendMensaje,
+  handleTokenRefresh,
+  handleSendEmail
+} from '../Api';
+
+import { newTokenClients } from '../Api/newTokenClients'
+import { updClientsUser } from '../Api/updClientsUser'
+import { Modal } from '../Utils/Modal';
+
+// Create a context for the Masivos application
+export const MasivosContext = createContext();
+
+/**
+ * Export a provider component that wraps the given children
+ * and provides a context for managing state and data related to a Masivos application.
+ *
+ * @param {Object} props - The component props.
+ * @param {ReactNode} props.children - The children components to be wrapped.
+ * @return {ReactElement} The wrapped component.
+ */
+export const MasivosProvider = ({ children }) => {
+  // Navigation hook
+  const navigate = useNavigate();
+  
+  // State variables for user authentication
+  const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState(false);
+  const [userLogin, setUserLogin] = useState({});
+  const [plantilla, setPlantilla] = useState('');
+  const [tokenUser, setTokenUser] = useState('');
+  const [getTemplates, setGetTemplates] = useState([]);
+  const [urlTemplate, setUrlTemplate] = useState('');
+  const [numeroEjemplo,setNumeroEjemplo] = useState(0);
+  const [isImage, setIsImage] = useState(false);
+  const [startSend, setStartSend] = useState(false);
+
+  // State variables for client data
+  const [getDataClient, setGetDataClient] = useState(false);
+  const [getDataClients, setGetDataClients] = useState([]);
+  const [homeDataClient, setHomeDataClient] = useState({});
+  
+  // State variables for form configuration
+  const [fieldsFormConfig, setFieldsFormConfig] = useState(
+    {
+      'Usuarios': {
+        'Crear': { fields: ['name', 'email', 'password'], api: handleUser },
+      },
+      'Campañas': {
+        'Crear': { fields: ['name', 'token_meta', 'phone_id', 'waba_id', 'users', 'image'], api: handleClient },
+      },
+      'Cambiar token': {
+        'Crear': { fields:['Campaña', 'nuevo token'], api: newTokenClients }
+      },
+      'Usuario por Campaña': {
+        'Crear': { fields:['Campaña', 'users'], api: updClientsUser }
+      }
+    });
+
+  // State variables for Excel details, notifications, and others
+  const [detailsExcel, setDetailsExcel] = useState([]);
+  const [excelLength, setExcelLength] = useState(0);
+  const [Notificaciones, setNotificaciones] = useState([]);
+  const [urlImage, setUrlImage] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [detailSend, setDetailSend] = useState({});
+  const [dataError, setDataError] = useState([]);
+  const [sendHistory, setSendHistory] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [numberFail, setNumberFail] = useState(false);
+  const [isRuning, setIsRuning] = useState(false)
+  const [isRefresh, setIsRefresh] = useState(false);
+  const [newNotifications, setNewNotifications] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [idPlantilla, setIdPlantilla] = useState('');
+  const [variables, setVariable] = useState(0);
+  const [variablesInputs, setVariablesInputs] = useState({});
+  const [getDataUsers, setGetDataUsers] = useState([])
+
+  // Effect to handle login when submitButtonClicked changes
+  useEffect(() => {
+    if (email !== '' &amp;&amp; password !== '' &amp;&amp; submitButtonClicked === true) {
+      Modal('question', 'Validando credenciales...');
+      handleLogin(email, password).then(result => {
+        if (result?.data &amp;&amp; result.data?.attributes?.name) {
+          const welcome = '¡Bienvenido! ' + result.data.attributes.name;
+          Modal('success', welcome);
+          setTokenUser(result.data.attributes.token);
+          setUserLogin(result.data);
+          setLogin(true);
+          navigate('/Menu');
+        } else {
+          Modal('error', 'Credenciales incorrectas');
+          setSubmitButtonClicked(false);
+        }
+      })
+    }
+  }, [submitButtonClicked]);
+
+  // Effect to handle token refresh
+  useEffect(() => {
+    const refreshToken = () => {
+      setIsRefresh(true);
+      setTimeout(() => {
+        handleTokenRefresh(tokenUser).then(result => {
+          if (result &amp;&amp; result.token) {
+            setTokenUser(result.token);
+            console.log('Nuevo token:', result.token);
+          }
+        }).catch(error => {
+          console.error('Error al actualizar el token:', error);
+        }).finally(() => {
+          setIsRefresh(false);
+        });
+      }, 500); 
+    };
+
+    const intervalId = setInterval(refreshToken, 20 * 60 * 1000);
+    return () => clearInterval(intervalId);
+  }, [tokenUser]);
+
+  // Return the Masivos context provider with the state values and functions
+  return (
+    &lt;MasivosContext.Provider
+      value={{
+        tokenUser,
+        setTokenUser,
+        login,
+        setLogin,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        submitButtonClicked,
+        setSubmitButtonClicked,
+        userLogin,
+        setUserLogin,
+        getDataClient,
+        setGetDataClient,
+        getDataClients,
+        setGetDataClients,
+        homeDataClient,
+        setHomeDataClient,
+        plantilla,
+        setPlantilla,
+        fieldsFormConfig,
+        setFieldsFormConfig,
+        handleGetTemplate,
+        getTemplates,
+        setGetTemplates,
+        urlTemplate,
+        setUrlTemplate,
+        handleSendTemplate,
+        numeroEjemplo,
+        setNumeroEjemplo,
+        refreshTemplates,
+        isImage,
+        setIsImage,
+        handleSendMensaje,
+        detailsExcel,
+        setDetailsExcel,
+        excelLength,
+        setExcelLength,
+        Notificaciones,
+        setNotificaciones,
+        urlImage,
+        setUrlImage,
+        handleCampains,
+        showToast,
+        setShowToast,
+        detailSend,
+        setDetailSend,
+        dataError,
+        setDataError,
+        startSend,
+        setStartSend,
+        sendHistory,
+        setSendHistory,
+        showNotification,
+        setShowNotification,
+        numberFail,
+        setNumberFail,
+        isRuning,
+        setIsRuning,
+        isRefresh,
+        setIsRefresh,
+        newNotifications,
+        setNewNotifications,
+        handleSendEmail,
+        showResetPassword,
+        setShowResetPassword,
+        idPlantilla,
+        setIdPlantilla,
+        variables,
+        setVariable,
+        variablesInputs,
+        setVariablesInputs,
+        getDataUsers,
+        setGetDataUsers
+      }}
+    >
+      {children}
+    &lt;/MasivosContext.Provider>
+  );
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

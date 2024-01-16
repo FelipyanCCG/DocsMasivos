@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/MySend/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/MySend/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useContext } from 'react';
+import { MasivosContext } from '../../Context';
+import { useNotificationDetails } from './useNotificationDetails';
+import { ImgTemplate } from '../../Components/ImgTemplate';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+
+
+/**
+ * Render the header section with the given detailSend.
+ *
+ * @param {Object} detailSend - The detailSend object containing the required data.
+ * @return {JSX.Element} The JSX element representing the header section.
+ */
+const HeaderSection = ({ detailSend }) => (
+
+  &lt;div className="bg-white rounded-lg shadow-lg p-3 flex justify-between m-1 ">
+    &lt;section className="w-22 text-sky-600 text-base font-semibold border rounded-lg m-1 p-2">
+      &lt;h2>Procesados&lt;/h2>
+      &lt;p className="text-black text-opacity-60 text-sm border-b border-sky-600">{detailSend.procesado}&lt;/p>
+    &lt;/section>
+    &lt;section className="w-24 text-sky-600 text-base font-semibold border rounded-lg m-1 p-2">
+      &lt;h2>Correctos&lt;/h2>
+      &lt;p className="text-black text-opacity-60 text-sm border-b border-green-600">{detailSend.correctos}&lt;/p>
+    &lt;/section>
+    &lt;section className="w-24 text-sky-600 text-base font-semibold border rounded-lg m-1 p-2">
+      &lt;h2>Fallidos&lt;/h2>
+      &lt;p className="text-black text-opacity-60 text-sm border-b border-red-600">{detailSend.incorrectos}&lt;/p>
+    &lt;/section>
+  &lt;/div>
+
+);
+
+
+/**
+ * Renders the body section of the component.
+ *
+ * @param {number} numberFail - The number of failures.
+ * @param {function} sendHistory - The function to send history.
+ * @param {Array} dataError - The array of data errors.
+ * @return {JSX.Element} The JSX element representing the body section.
+ */
+const BodySection = ({ numberFail, sendHistory, dataError }) => (
+
+  &lt;div className="bg-white rounded-lg shadow-lg p-3 h-80 flex justify-between">
+    &lt;div className="overflow-auto w-80">
+      {!numberFail ? (
+        [...sendHistory].reverse().map((result, index) => (
+          &lt;div key={index} className="p-2 my-1 border-b flex justify-between mx-4">
+            &lt;p className={result.attributes?.code_status === 200 ? 'text-green-600 text-sm mr-6' : 'text-red-600 text-opacity-60 text-sm mr-6'}>
+              Estado : {result.attributes?.code_status || '400'}
+            &lt;/p>
+            &lt;p className="text-black text-opacity-60 text-sm mr-6">numero : {result.attributes?.wa_id || result?.wa_id}&lt;/p>
+          &lt;/div>
+        ))
+      ) : (
+        [...dataError].reverse().map((result, index) => (
+          &lt;div key={index} className="p-2 my-1 border-b  justify-between mx-4">
+            &lt;p className={result.number === 200 ? 'text-green-600 text-sm' : 'text-red-600 text-opacity-60 text-sm'}>
+              {result.number}
+            &lt;/p>
+            &lt;span className="select-none text-xs italic">{result.status.error}&lt;/span>
+          &lt;/div>
+        ))
+      )}
+    &lt;/div>
+  &lt;/div>
+
+);
+
+
+/**
+ * Renders the FooterSection component.
+ *
+ * @param {Object} detailSend - The detailSend object containing the details.
+ * @param {number} excelLength - The length of the excel file.
+ * @param {boolean} isRuning - A boolean indicating whether the process is running or not.
+ * @return {JSX.Element} The rendered FooterSection component.
+ */
+const FooterSection = ({ detailSend, excelLength, isRuning }) => {
+
+  const { startStop, clickNumberFail } = useNotificationDetails();
+
+  return (
+    &lt;div className="bg-white rounded-lg shadow-lg p-4 m-1 flex justify-between items-center">
+      {detailSend.procesado === excelLength &amp;&amp; detailSend.incorrectos !== '0' ? (
+        &lt;button className="bg-sky-600 text-white rounded-lg p-2" onClick={clickNumberFail}>
+          Numeros Erroneos
+        &lt;/button>
+      ) : (
+        &lt;button className="bg-sky-600 text-white rounded-lg p-2" onClick={startStop}>
+          {isRuning ? 'Reanudar' : 'Detener' }
+        &lt;/button>
+      )}
+      &lt;div className="items-center">
+        &lt;div className="flex items-center text-sky-600">
+          {detailSend.procesado !== excelLength &amp;&amp; (
+            &lt;svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-sky-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              &lt;circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4">&lt;/circle>
+              &lt;path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 0116 0H4z">&lt;/path>
+            &lt;/svg>
+          )}
+          &lt;p>
+            {detailSend.procesado} / {excelLength}
+          &lt;/p>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+
+/**
+ * Generates the function comment for the given function body in a markdown code block with the correct language syntax.
+ *
+ * @return {string} The function comment.
+ */
+const MySend = () => {
+
+  const { 
+    showToast,
+    detailSend,
+    excelLength,
+    numberFail,
+    sendHistory,
+    dataError,
+    isRuning,
+    } = useContext(MasivosContext);
+    
+  const { closeToast } = useNotificationDetails();
+
+  return (
+    &lt;>
+      {showToast &amp;&amp; (
+        &lt;div id="toast-overlay" className="fixed inset-0 flex items-center justify-center z-50 ">
+          &lt;div className="absolute inset-0 bg-black bg-opacity-70">&lt;/div>
+          &lt;div
+            className="relative mx-auto p-4 shadow-lg bg-[#f9f9f9] rounded-lg z-10 flex"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {detailSend.procesado === excelLength &amp;&amp; (
+              &lt;IoIosCloseCircleOutline
+                className="absolute top-0 right-0 text-4xl text-black m-4 cursor-pointer"
+                onClick={closeToast}
+              />
+            )}
+            &lt;div className="flex justify-center ">
+              &lt;ImgTemplate configStyle={true} />
+            &lt;/div>
+            &lt;div className="shadow-lg p-3">
+              &lt;HeaderSection detailSend={detailSend} />
+              &lt;BodySection numberFail={numberFail} sendHistory={sendHistory} dataError={dataError} />
+              &lt;FooterSection detailSend={detailSend} excelLength={excelLength} isRuning={isRuning}/>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      )}
+    &lt;/>
+  );
+};
+
+export { MySend };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppRoutes">AppRoutes</a></li><li><a href="global.html#BodySection">BodySection</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Config">Config</a></li><li><a href="global.html#FooterSection">FooterSection</a></li><li><a href="global.html#FormConfig">FormConfig</a></li><li><a href="global.html#HeaderSection">HeaderSection</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#ImgTemplate">ImgTemplate</a></li><li><a href="global.html#Layout">Layout</a></li><li><a href="global.html#MasivosProvider">MasivosProvider</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#Modal">Modal</a></li><li><a href="global.html#MyLoader">MyLoader</a></li><li><a href="global.html#MyNotification">MyNotification</a></li><li><a href="global.html#MyResetPassword">MyResetPassword</a></li><li><a href="global.html#MySend">MySend</a></li><li><a href="global.html#Navbar">Navbar</a></li><li><a href="global.html#NotFound">NotFound</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Reportes">Reportes</a></li><li><a href="global.html#SendExample">SendExample</a></li><li><a href="global.html#SendExcel">SendExcel</a></li><li><a href="global.html#SignIn">SignIn</a></li><li><a href="global.html#Template">Template</a></li><li><a href="global.html#Toast">Toast</a></li><li><a href="global.html#VariableTemplate">VariableTemplate</a></li><li><a href="global.html#useConfig">useConfig</a></li><li><a href="global.html#useFormConfig">useFormConfig</a></li><li><a href="global.html#useMyNotification">useMyNotification</a></li><li><a href="global.html#useNabvar">useNabvar</a></li><li><a href="global.html#useNotificationDetails">useNotificationDetails</a></li><li><a href="global.html#useResetPassword">useResetPassword</a></li><li><a href="global.html#useSendExample">useSendExample</a></li><li><a href="global.html#useSendExcel">useSendExcel</a></li><li><a href="global.html#useSignIn">useSignIn</a></li><li><a href="global.html#useTemplate">useTemplate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jan 16 2024 10:20:59 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
